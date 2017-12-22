@@ -84,13 +84,13 @@ export default {
     setFill(color) {
       switch (color) {
         case BLACK:
-          this.ctx.fillStyle = "rgb(0,0,0)";
+          this.ctx.fillStyle = "#140000";
           break;
         case WHITE:
-          this.ctx.fillStyle = "rgb(255,255,255)";
+          this.ctx.fillStyle = "#dedddb";
           break;
         case RED:
-          this.ctx.fillStyle = "rgb(220,0,0)";
+          this.ctx.fillStyle = "#c81935";
           break;
       }
     },
@@ -177,7 +177,7 @@ export default {
         return;
       }
       fileToImage(event.dataTransfer.files[0]).then(img => {
-        this.ctx.drawImage(img, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        this.ctx.drawImage(img, 0, 0, this.width, this.height);
       });
     },
     dragover(event) {

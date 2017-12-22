@@ -6,7 +6,7 @@
         <div class="app__color app__color--black" :class="{'app__color--active': color == BLACK}" @click="color = BLACK"></div>
         <div class="app__color app__color--red" :class="{'app__color--active': color == RED}" @click="color = RED"></div>
       </div>
-      <button @click="save">Save</button>
+      <button class="app__submit" @click="submit">Submit</button>
       <div ref="output"></div>
     </div>
 </template>
@@ -14,13 +14,14 @@
 <script>
 import PaintCanvas from "./Canvas.vue";
 import { BLACK, RED } from "../constants";
+
 export default {
   data: () => ({
     color: BLACK
   }),
   components: { PaintCanvas },
   methods: {
-    async save() {
+    async submit() {
       const black = this.$refs.canvas.export(BLACK);
       const red = this.$refs.canvas.export(RED);
       const response = await fetch("api/print", {
@@ -31,8 +32,12 @@ export default {
         }),
         headers: { "Content-Type": "application/json" }
       });
-      const result = await response.json();
-      console.log(result);
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+      } else {
+        console.warn("An error occured", await response.text());
+      }
     }
   }
 };
@@ -43,6 +48,7 @@ html {
   background: darkgreen;
 }
 .app__colors {
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
 }
@@ -57,12 +63,15 @@ html {
   border-color: orange;
 }
 .app__color--white {
-  background: rgb(255, 255, 255);
+  background: #dedddb;
 }
 .app__color--black {
-  background: rgb(0, 0, 0);
+  background: #140000;
 }
 .app__color--red {
-  background: rgb(220, 0, 0);
+  background: #c81935;
+}
+.app__submit {
+  margin-top: 20px;
 }
 </style>

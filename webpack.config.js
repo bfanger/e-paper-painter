@@ -5,7 +5,7 @@ const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const webpackConfig = {
-  entry: path.join(__dirname, "src-webapp/bootstrap.js"),
+  entry: path.join(__dirname, "src/bootstrap.js"),
   output: {
     filename: "webapp.bundle.js",
     path: path.join(__dirname, "build")
@@ -19,18 +19,18 @@ const webpackConfig = {
       {
         test: /\.js$/,
         loader: "babel-loader",
-        include: path.join(__dirname, "src-webapp")
+        include: path.join(__dirname, "src")
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src-webapp/index.html")
+      template: path.join(__dirname, "src/index.html")
     })
   ]
 };
 if (process.argv[1].substr(-8) === "/webpack") {
-  // production build
+  // Production build
   webpackConfig.devtool = "source-map";
   webpackConfig.plugins.push(
     new webpack.DefinePlugin({
@@ -39,7 +39,7 @@ if (process.argv[1].substr(-8) === "/webpack") {
   );
   webpackConfig.plugins.push(new UglifyJsPlugin());
 } else if (process.argv[1].substr(-19) === "/webpack-dev-server") {
-  // dev build (via webpack-dev-server)
+  // Dev build (via webpack-dev-server)
   webpackConfig.devServer = {
     quiet: true,
     proxy: {

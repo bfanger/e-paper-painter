@@ -160,7 +160,6 @@ export default {
           }
           ctx.fillStyle = fillStyle;
           if (this.rotated) {
-            console.log();
             ctx.fillRect(y, SCREEN_HEIGHT - x, 1, 1);
           } else {
             ctx.fillRect(x, y, 1, 1);

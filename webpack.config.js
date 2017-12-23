@@ -44,7 +44,7 @@ if (process.argv[1].substr(-8) === "/webpack") {
     quiet: true,
     proxy: {
       "/api": {
-        target: "http://localhost:3000"
+        target: "http://pi.bfanger.nl:3001"
       }
     }
   };

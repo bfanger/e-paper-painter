@@ -10,7 +10,7 @@ from binascii import a2b_base64
 import json
 
 
-PORT = 3001
+PORT = 3000
 SERVER_DIR = path.dirname(path.abspath(__file__))
 PUBLIC_DIR = path.realpath(SERVER_DIR + "/../../build")
 TMP_DIR = path.realpath(SERVER_DIR + "/../../tmp")

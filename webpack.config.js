@@ -7,7 +7,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const webpackConfig = {
   entry: path.join(__dirname, "src/bootstrap.js"),
   output: {
-    filename: "webapp.bundle.js",
+    filename: "bundle.js",
     path: path.join(__dirname, "build")
   },
   module: {

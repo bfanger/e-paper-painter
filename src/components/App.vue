@@ -1,14 +1,26 @@
 <template>
-    <div>
-      <PaintCanvas ref="canvas" :color="color"/>
-      <div class="app__colors">
-        <div class="app__color app__color--white" :class="{'app__color--active': color == WHITE}" @click="color = WHITE"></div>
-        <div class="app__color app__color--black" :class="{'app__color--active': color == BLACK}" @click="color = BLACK"></div>
-        <div class="app__color app__color--red" :class="{'app__color--active': color == RED}" @click="color = RED"></div>
-      </div>
-      <button class="app__submit" @click="submit">Submit</button>
-      <div ref="output"></div>
+  <div>
+    <PaintCanvas ref="canvas" :color="color" />
+    <div class="app__colors">
+      <div
+        class="app__color app__color--white"
+        :class="{ 'app__color--active': color == WHITE }"
+        @click="color = WHITE"
+      ></div>
+      <div
+        class="app__color app__color--black"
+        :class="{ 'app__color--active': color == BLACK }"
+        @click="color = BLACK"
+      ></div>
+      <div
+        class="app__color app__color--red"
+        :class="{ 'app__color--active': color == RED }"
+        @click="color = RED"
+      ></div>
     </div>
+    <button class="app__submit" @click="submit">Submit</button>
+    <div ref="output"></div>
+  </div>
 </template>
 
 <script>
@@ -16,10 +28,10 @@ import PaintCanvas from "./Canvas.vue";
 import { BLACK, RED } from "../constants";
 
 export default {
+  components: { PaintCanvas },
   data: () => ({
     color: BLACK
   }),
-  components: { PaintCanvas },
   methods: {
     async submit() {
       const black = this.$refs.canvas.export(BLACK);

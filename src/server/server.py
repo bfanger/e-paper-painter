@@ -12,7 +12,7 @@ import json
 
 PORT = 3000
 SERVER_DIR = path.dirname(path.abspath(__file__))
-PUBLIC_DIR = path.realpath(SERVER_DIR + "/../../build")
+PUBLIC_DIR = path.realpath(SERVER_DIR + "/../../dist")
 TMP_DIR = path.realpath(SERVER_DIR + "/../../tmp")
 
 
@@ -55,8 +55,8 @@ class Server(SimpleHTTPRequestHandler):
         file_red.close()
         try:
             epd_display_frame(filename + '_black.png', filename + '_red.png')
-        except ImportError:
-            print('ImportError (MacOS ?)')
+        except ImportError, error:
+            print('ImportError', error)
 
         self.send_response(200)
         self.send_header('Content-type', 'application/json')

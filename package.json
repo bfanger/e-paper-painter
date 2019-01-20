@@ -2,26 +2,18 @@
   "name": "paint",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack && src/server/server.py",
+    "start": "vue-cli-service build && src/server/server.py",
     "dev": "concurrently --kill-others 'npm run dev:server' 'npm run dev:app'",
-    "dev:app": "webpack-dev-server --inline --host=0.0.0.0",
+    "dev:app": "vue-cli-service serve",
     "dev:server": "reload src/server/server.py",
-    "build": "webpack",
+    "build": "vue-cli-service build",
     "lint": "eslint --ext .js,.vue src"
   },
   "license": "MIT",
   "babel": {
     "presets": [
       [
-        "env",
-        {
-          "targets": {
-            "browsers": [
-              "last 2 versions",
-              "Safari >= 9"
-            ]
-          }
-        }
+        "@vue/app"
       ]
     ]
   },
@@ -31,42 +23,38 @@
       "es6": true,
       "node": true
     },
-    "parser": "babel-eslint",
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
     "extends": [
-      "eslint:recommended",
-      "prettier"
+      "esnext",
+      "plugin:vue/recommended",
+      "@vue/prettier"
     ],
     "plugins": [
-      "vue",
       "only-warn"
     ],
     "rules": {
-      "no-console": [
-        0
-      ]
+      "no-console": "off"
     }
   },
-  "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.3",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "concurrently": "^3.5.1",
-    "css-loader": "^0.28.7",
-    "eslint": "^4.13.1",
-    "eslint-config-prettier": "^2.9.0",
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.3.0",
+    "@vue/cli-plugin-eslint": "^3.3.0",
+    "@vue/cli-service": "^3.3.0",
+    "@vue/eslint-config-prettier": "^4.0.1",
+    "concurrently": "^4.1.0",
+    "eslint": "^5.12.1",
+    "eslint-config-esnext": "^4.0.0",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-only-warn": "^1.0.1",
-    "eslint-plugin-vue": "^2.1.0",
-    "friendly-errors-webpack-plugin": "^1.6.1",
-    "html-webpack-plugin": "^2.30.1",
+    "eslint-plugin-vue": "^5.1.0",
     "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6",
-    "uglifyjs-webpack-plugin": "^1.1.4",
+    "sass-loader": "^7.1.0",
     "vue": "^2.5.13",
-    "vue-loader": "^13.6.0",
+    "vue-loader": "^15.5.1",
     "vue-template-compiler": "^2.5.13",
-    "vuex": "^3.0.1",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "vuex": "^3.0.1"
   }
 }

@@ -1,17 +1,17 @@
 <template>
-    <canvas
-      class="canvas" 
-      :style="{width: (width * scale) + 'px'}" 
-      :width="width" 
-      :height="height" 
-      @mousedown="mousedown"
-      @mousemove="mousemove"
-      @mouseup="mouseup"
-      @drop="drop"
-      @dragover="dragover"
-      @touchstart.prevent="touchstart"
-      @touchmove.prevent="touchmove"
-    />
+  <canvas
+    class="canvas"
+    :style="{ width: width * scale + 'px' }"
+    :width="width"
+    :height="height"
+    @mousedown="mousedown"
+    @mousemove="mousemove"
+    @mouseup="mouseup"
+    @drop="drop"
+    @dragover="dragover"
+    @touchstart.prevent="touchstart"
+    @touchmove.prevent="touchmove"
+  />
 </template>
 
 <script>
@@ -19,24 +19,24 @@ import { WHITE, BLACK, RED, SCREEN_WIDTH, SCREEN_HEIGHT } from "../constants";
 import fileToImage from "../fileToImage";
 export default {
   props: {
-    color: Number
+    color: { type: Number, required: true }
   },
   data: () => ({
     brush: 3,
     scale: 3,
     rotated: true
   }),
-  watch: {
-    color(color) {
-      this.setFill(color);
-    }
-  },
   computed: {
     width() {
       return this.rotated ? SCREEN_HEIGHT : SCREEN_WIDTH;
     },
     height() {
       return this.rotated ? SCREEN_WIDTH : SCREEN_HEIGHT;
+    }
+  },
+  watch: {
+    color(color) {
+      this.setFill(color);
     }
   },
   mounted() {

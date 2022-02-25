@@ -1,6 +1,35 @@
+<script lang="ts" setup>
+import PaintCanvas from "./PaintCanvas.vue";
+import { ref } from "vue";
+import { BLACK, RED, WHITE } from "../constants";
+const color = ref(BLACK)
+const componentRef = ref<typeof PaintCanvas>()
+const output = ref()
+
+async function submit() {
+  const paintCanvas = componentRef.value as typeof PaintCanvas
+  const black = paintCanvas.exportColor(BLACK);
+  const red = paintCanvas.exportColor(RED);
+  const response = await fetch("api/print", {
+    method: "POST",
+    body: JSON.stringify({
+      black: black.toDataURL(),
+      red: red.toDataURL(),
+    }),
+    headers: { "Content-Type": "application/json" },
+  });
+  if (response.ok) {
+    const result = await response.json();
+    console.log(result);
+  } else {
+    console.warn("An error occured", await response.text());
+  }
+}
+</script>
+
 <template>
   <div>
-    <PaintCanvas ref="canvas" :color="color" />
+    <PaintCanvas ref="componentRef" :color="color" />
     <div class="app__colors">
       <div
         class="app__color app__color--white"
@@ -23,37 +52,7 @@
   </div>
 </template>
 
-<script>
-import PaintCanvas from "./Canvas.vue";
-import { BLACK, RED } from "../constants";
 
-export default {
-  components: { PaintCanvas },
-  data: () => ({
-    color: BLACK
-  }),
-  methods: {
-    async submit() {
-      const black = this.$refs.canvas.export(BLACK);
-      const red = this.$refs.canvas.export(RED);
-      const response = await fetch("api/print", {
-        method: "POST",
-        body: JSON.stringify({
-          black: black.toDataURL(),
-          red: red.toDataURL()
-        }),
-        headers: { "Content-Type": "application/json" }
-      });
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result);
-      } else {
-        console.warn("An error occured", await response.text());
-      }
-    }
-  }
-};
-</script>
 
 <style lang="scss">
 html {

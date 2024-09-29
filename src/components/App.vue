@@ -2,12 +2,12 @@
 import PaintCanvas from "./PaintCanvas.vue";
 import { ref } from "vue";
 import { BLACK, RED, WHITE } from "../constants";
-const color = ref(BLACK)
-const componentRef = ref<typeof PaintCanvas>()
-const output = ref()
+const color = ref(BLACK);
+const componentRef = ref<typeof PaintCanvas>();
+const output = ref();
 
 async function submit() {
-  const paintCanvas = componentRef.value as typeof PaintCanvas
+  const paintCanvas = componentRef.value as typeof PaintCanvas;
   const black = paintCanvas.exportColor(BLACK);
   const red = paintCanvas.exportColor(RED);
   const response = await fetch("api/print", {
@@ -51,8 +51,6 @@ async function submit() {
     <div ref="output"></div>
   </div>
 </template>
-
-
 
 <style lang="scss">
 html {

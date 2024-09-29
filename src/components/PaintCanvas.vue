@@ -5,32 +5,31 @@ import fileToImage from "../fileToImage";
 
 // eslint-disable-next-line no-undef
 const props = defineProps<{
-  color: number
-}>()
+  color: number;
+}>();
 
-
-const canvasRef = ref<HTMLCanvasElement>()
+const canvasRef = ref<HTMLCanvasElement>();
 const brush = ref(3);
-const scale = ref(3)
-const rotated = ref(true)
-const width = computed(() => rotated.value ? SCREEN_HEIGHT : SCREEN_WIDTH)
-const height = computed(() => rotated.value ? SCREEN_WIDTH : SCREEN_HEIGHT)
+const scale = ref(3);
+const rotated = ref(true);
+const width = computed(() => (rotated.value ? SCREEN_HEIGHT : SCREEN_WIDTH));
+const height = computed(() => (rotated.value ? SCREEN_WIDTH : SCREEN_HEIGHT));
 
-let previous: { x: number, y: number } | false = false
+let previous: { x: number; y: number } | false = false;
 
-let ctx: CanvasRenderingContext2D
+let ctx: CanvasRenderingContext2D;
 watch(props, () => {
-  ctx && setFill(props.color)
-})
-let canvas: HTMLCanvasElement
+  ctx && setFill(props.color);
+});
+let canvas: HTMLCanvasElement;
 onMounted(() => {
-  canvas = canvasRef.value as HTMLCanvasElement
+  canvas = canvasRef.value as HTMLCanvasElement;
   ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
   ctx.imageSmoothingEnabled = false;
   setFill(WHITE);
   ctx.fillRect(0, 0, width.value, height.value);
   setFill(props.color);
-})
+});
 function mousedown(event: MouseEvent) {
   const { top, left } = canvas.getBoundingClientRect();
   const x = Math.floor((event.clientX - left) / scale.value);
@@ -100,10 +99,8 @@ function lineTo(x: number, y: number) {
     total: 0,
   };
   steps.total = Math.max(steps.x, steps.y);
-  const dx =
-    x > previous.x ? steps.x / steps.total : steps.x / -steps.total;
-  const dy =
-    y > previous.y ? steps.y / steps.total : steps.y / -steps.total;
+  const dx = x > previous.x ? steps.x / steps.total : steps.x / -steps.total;
+  const dy = y > previous.y ? steps.y / steps.total : steps.y / -steps.total;
   const start = previous;
   for (let i = 0; i <= steps.total; i++) {
     dot(start.x + Math.round(dx * i), start.y + Math.round(dy * i));
@@ -152,7 +149,7 @@ function exportColor(color: number) {
   return exportCanvas;
 }
 // eslint-disable-next-line no-undef
-defineExpose({ exportColor })
+defineExpose({ exportColor });
 
 function drop(event: DragEvent) {
   event.preventDefault();
@@ -189,7 +186,6 @@ function dragover(event: DragEvent) {
     @touchmove.prevent="touchmove"
   />
 </template>
-
 
 <style lang="scss">
 .canvas {

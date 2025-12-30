@@ -3,7 +3,6 @@ import { computed, onMounted, ref, watch } from "vue";
 import { WHITE, BLACK, RED, SCREEN_WIDTH, SCREEN_HEIGHT } from "../constants";
 import fileToImage from "../fileToImage";
 
-// eslint-disable-next-line no-undef
 const props = defineProps<{
   color: number;
 }>();
@@ -19,7 +18,9 @@ let previous: { x: number; y: number } | false = false;
 
 let ctx: CanvasRenderingContext2D;
 watch(props, () => {
-  ctx && setFill(props.color);
+  if (ctx) {
+    setFill(props.color);
+  }
 });
 let canvas: HTMLCanvasElement;
 onMounted(() => {
@@ -148,7 +149,7 @@ function exportColor(color: number) {
   }
   return exportCanvas;
 }
-// eslint-disable-next-line no-undef
+
 defineExpose({ exportColor });
 
 function drop(event: DragEvent) {
@@ -172,8 +173,8 @@ function dragover(event: DragEvent) {
 
 <template>
   <canvas
-    class="canvas"
     ref="canvasRef"
+    class="canvas"
     :style="{ width: width * scale + 'px' }"
     :width="width"
     :height="height"

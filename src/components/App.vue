@@ -35,20 +35,20 @@ async function submit() {
         class="app__color app__color--white"
         :class="{ 'app__color--active': color == WHITE }"
         @click="color = WHITE"
-      ></div>
+      />
       <div
         class="app__color app__color--black"
         :class="{ 'app__color--active': color == BLACK }"
         @click="color = BLACK"
-      ></div>
+      />
       <div
         class="app__color app__color--red"
         :class="{ 'app__color--active': color == RED }"
         @click="color = RED"
-      ></div>
+      />
     </div>
     <button class="app__submit" @click="submit">Submit</button>
-    <div ref="output"></div>
+    <div ref="output" />
   </div>
 </template>
 
